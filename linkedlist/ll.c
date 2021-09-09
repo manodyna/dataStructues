@@ -1,34 +1,47 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-struct LinkedList{
+struct node
+{
     int data;
-    struct LinkedList *next;
- };
+    struct node *link;
+};
 
- typedef struct LinkedList *node; //Define node as pointer of data type struct LinkedList
+typedef struct node NODE;
 
-node createNode(){
-    node temp; // declare a node
-    temp = (node)malloc(sizeof(struct LinkedList)); // allocate memory using malloc()
-    temp->next = NULL;// make next point to NULL
-    return temp;//return the new node
-}
+int main(){
+    NODE* first = NULL;
+    NODE* next = NULL;
+    NODE* third = NULL;
 
-node addNode(node head, int value){
-    node temp,p;// declare two nodes temp and p
-    temp = createNode();//createNode will return a new node with data = value and next pointing to NULL.
-    temp->data = value; // add element's value to data part of node
-    if(head == NULL){
-        head = temp;     //when linked list is empty
+    first = (NODE*)malloc(sizeof(NODE*));
+    next = (NODE*)malloc(sizeof(NODE*));
+    third = (NODE*)malloc(sizeof(NODE*));
+
+    first->data = 10;
+    first->link = next;
+    next->data = 20;
+    next->link = third;
+    third->data = 30;
+    third->link = NULL;
+
+    NODE* new = (NODE*)malloc(sizeof(NODE*));
+    // NODE* temp = (NODE*)malloc(sizeof(NODE*));
+    new->data=40;
+
+    while(first->link != NULL){
+        first = first->link;
+        first->link = new;
+        new->link = NULL;
     }
-    else{
-        p  = head;//assign head to p 
-        while(p->next != NULL){
-            p = p->next;//traverse the list until p is the last node.The last node always points to NULL.
-        }
-        p->next = temp;//Point the previous last node to the new node created.
-    }
-    return head;
-}
 
+    while(first != NULL){
+        printf("%d\t", first->data);
+        first = first->link;
+    }
+    while(first != NULL){
+        first = first->link;
+        free(first);
+    }
+}
