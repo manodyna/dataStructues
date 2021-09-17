@@ -7,7 +7,7 @@ struct node
 typedef struct node NODE;
 
 NODE* getNode();
-void insertAtHead(NODE *, int data);
+void insertAtHead(NODE **, int data);
 void insertAtTail(NODE **, int data);
 void deleteAtHead(NODE **);
 void deleteAtTail(NODE **);

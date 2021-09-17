@@ -1,4 +1,5 @@
 // #include "struct.h";
+// #include <stdlib.h>
 
 NODE* getNode(){
     NODE *temp;
@@ -6,21 +7,35 @@ NODE* getNode(){
     temp->rlink=temp->llink=NULL;
     return temp;
 }
-void insertAtHead(NODE *first, int d)
+void insertAtHead(NODE **first, int d)
 {
     NODE *temp = getNode();
     temp->data = d;
-    if (first == NULL)
+    if (*first == NULL)
     {
-        first = temp;
+        *first = temp;
+        temp->rlink=temp->llink=temp;
     }
     else
     {
-        temp->rlink = first;
-        // temp->llink = NULL;
-        (first)->llink = temp;
-        first=temp;
+        temp->rlink = *first;
+        temp->llink = NULL;
+        (*first)->llink = temp;
+        *first=temp;
     }
+    // NODE *temp=getNode();
+	// temp->data=d;
+	// temp->rlink=temp->llink=temp;
+	// if(*first==NULL)
+	// 	*first=temp;
+	// else{
+	// 	NODE *last=(*first)->llink;
+	// 	temp->rlink=*first;
+	// 	(*first)->llink=temp;
+	// 	last->rlink=temp;
+	// 	temp->llink=last;
+	// 	*first=temp;
+	// }
 }
 void insertAtTail(NODE **first, int d)
 { 

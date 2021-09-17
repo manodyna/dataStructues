@@ -10,7 +10,7 @@ struct node
 };
 typedef struct node NODE;
 
-NODE *getNode()
+NODE *getnode()
 {
     NODE *temp;
     temp = (NODE *)malloc(sizeof(NODE));
@@ -19,7 +19,7 @@ NODE *getNode()
 
 void read(NODE **poly1)
 {
-    NODE *temp = getNode();
+    NODE *temp = getnode();
     *poly1 = temp;
     int con = 0;
     printf("enter coeff and pow");
@@ -34,7 +34,7 @@ void read(NODE **poly1)
     while (con)
     {
 
-        temp->link = getNode();
+        temp->link = getnode();
         printf("enter coeff and pow");
         int coeff, pow;
         scanf("%d %d", &coeff, &pow);
@@ -69,7 +69,7 @@ void display(NODE *poly)
 
 NODE* add(NODE *first, NODE *second, NODE **result)
 {
-    NODE *temp = getNode();
+    NODE *temp = getnode();
     temp->link = NULL;
     *result = temp;
     while (first && second)
@@ -96,13 +96,13 @@ NODE* add(NODE *first, NODE *second, NODE **result)
 
         if (first && second)
         {
-            temp->link = getNode();
+            temp->link = getnode();
             temp = temp->link;
             temp->link = NULL;
         }
     }
     while(first || second){
-        temp->link=getNode();
+        temp->link=getnode();
         temp=temp->link;
         temp->link=NULL;
         if (first)
@@ -119,15 +119,15 @@ NODE* add(NODE *first, NODE *second, NODE **result)
     }
 }
 
-void eval(NODE* first){
-    int sum=0
-    NODE *cur=first;
-    int x;
-    scanf("%d",&x)
-    while(cur!=NULL){
-        sum+=
-    }
-}
+// void eval(NODE* first){
+//     int sum=0;
+//     NODE *cur=first;
+//     int x;
+//     scanf("%d",&x);
+//     while(cur!=NULL){
+//         sum+=
+//     }
+// }
 
 int main()
 {
@@ -139,6 +139,6 @@ int main()
     read(&poly1);
     printf("enter poly2");
     read(&poly2);
-    poly3=add(poly1, poly2, poly3);
-    display(poly2);
+    poly3=add(poly1, poly2, &poly3);
+    display(poly3);
 }

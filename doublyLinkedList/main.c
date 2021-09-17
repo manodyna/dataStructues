@@ -7,7 +7,9 @@
 int main()
 {
     NODE *first;
-    first = NULL;
+    first->data = 10;
+    first->llink=NULL;
+    first->rlink=NULL;
     int x, ch, pos;
     while (1)
     {

@@ -23,7 +23,7 @@ void insertAtHead(int d, NODE **first){
 }
 
 void insertAtTail(int d, NODE **first){
-    NODE *new;
+    NODE* new;
     new = getNode();
     new->data=d;
     new->link=NULL;
@@ -37,6 +37,7 @@ void insertAtTail(int d, NODE **first){
         {
             prev=prev->link;
         }
+        prev=prev->link;
         prev->link=new;        
     }
     
@@ -98,7 +99,7 @@ void deleteAtTail(NODE **first){
             next=prev;
             prev=prev->link;
         }
-        next->link==NULL;
+        next->link=NULL;
         free(prev);
         
     }
