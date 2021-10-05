@@ -35,7 +35,7 @@ prio delete (int *p, int *count)
     }
     else
     {
-        temp = p[0];
+        int tem = p[0];
         for (int i = 1; i <= *count-1; i++)
         {
             p[i - 1] = p[i];
