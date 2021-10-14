@@ -19,7 +19,7 @@ BST *getNode()
     return temp;
 }
 
-BST *insert(int data, BST *root)
+BST* insert(int data, BST *root)
 {
     BST *temp = getNode();
     temp->data = data;
@@ -31,10 +31,9 @@ BST *insert(int data, BST *root)
     {
         BST *prev = NULL;
         BST *cur = NULL;
-        prev = cur;
         while (cur != NULL)
         {
-
+            prev = cur;
             if (cur->data == temp->data)
             {
                 free(temp);
@@ -54,12 +53,12 @@ BST *insert(int data, BST *root)
         }
         if (temp->data > prev->data)
         {
-            prev->rlink = temp;
+            // prev->rlink = temp;
         }
-        else
-        {
-            prev->llink = temp;
-        }
+        // else
+        // {
+        //     // prev->llink = temp;
+        // }
         return cur;
     }
 }
@@ -87,7 +86,7 @@ void preorder(BST *root)
     else
     {
         printf("%d\t", root->data);
-        // root=root->llink;
+        root = root->llink;
         preorder(root->llink);
         preorder(root->rlink);
     }
@@ -125,7 +124,7 @@ void max(BST *root)
     int m;
     if (root == NULL)
     {
-        return ;
+        return;
     }
     else
     {
@@ -137,19 +136,105 @@ void max(BST *root)
 
 void search(BST *root, int ele)
 {
-    if (root == ele)
+    if (root->data == ele)
     {
         printf("element found\n");
         return;
     }
     else if (ele < root->data)
     {
-        search(root->llink);
+        search(root->llink, ele);
     }
     else
     {
-        search(root->rlink);
+        search(root->rlink, ele);
     }
+}
+
+BST *delete (BST *root, int ele)
+{
+    BST *cur = root;
+    BST *prev = NULL;
+    while (cur != NULL && cur->data != ele)
+    {
+        prev = cur;
+        if (ele < cur->data)
+        {
+            cur = cur->llink;
+        }
+        else
+        {
+            cur = cur->rlink;
+        }
+    }
+    if (cur == NULL)
+    {
+        printf("not found\n");
+        return root;
+    }
+    else
+    {
+        if (cur->rlink == NULL && cur->llink == NULL)
+        {
+            free(cur);
+        }
+        else if (cur->rlink == NULL || cur->llink == NULL)
+        {
+            BST *q;
+            if (cur->llink == NULL)
+            {
+                q = cur->rlink;
+            }
+            else
+            {
+                q = cur->llink;
+            }
+            if (prev == NULL)
+            {
+                return q;
+            }
+            if (cur == prev->llink)
+            {
+                prev->llink = q;
+            }
+            else
+            {
+                prev->rlink = q;
+            }
+            free(cur);
+            return root;
+        }
+        else if (cur->llink != NULL && cur->rlink != NULL)
+        {
+            BST *temp;
+            BST *p = cur->rlink;
+            while (temp->llink!=NULL)
+            {
+                p=temp;
+                temp=temp->llink;
+            }
+            if(p!=NULL){
+                p->llink=temp->rlink;
+            }else{
+                cur->rlink=temp->rlink;
+            }
+            cur->data=temp->data;
+            free(temp);
+            return root;
+        }
+    }
+    return root;
+}
+
+BST* create(char *postfix){
+    BST *stack[50];
+    int top;
+    char temp;
+    for (int i = 0; temp=stack[i] != '\0'; i++)
+    {
+        stack[i]=malloc(sizeof(BST));
+    }
+    
 }
 
 int main()
@@ -157,6 +242,8 @@ int main()
     int ele;
     int choice;
     BST *root;
+    char *postfix;
+    postfix=(char*)malloc(sizeof(char)*100);
     // root = getNode();
     while (1)
     {
@@ -178,9 +265,15 @@ int main()
         case 4:
             postorder(root);
             break;
-
+        case 5:
+            printf("enter node\n");
+            scanf("%d", &ele);
+            root = delete (root, ele);
+            break;
+        case 6:
+            printf("postfix expression\n");
+            scanf("%s", postfix);
+            printf("%c", postfix[1]);
         default:
             break;
-        }
-    }
-}
+        }}
